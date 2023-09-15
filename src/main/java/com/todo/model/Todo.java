@@ -3,8 +3,6 @@ package com.todo.model;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity(name = "todo")
@@ -40,6 +38,22 @@ public class Todo {
         return title;
     }
 
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -48,8 +62,8 @@ public class Todo {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void setDueDate(Date date) {
+        this.dueDate = date;
     }
 
     public boolean isCompleted() {
