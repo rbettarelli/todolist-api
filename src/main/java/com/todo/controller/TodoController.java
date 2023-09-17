@@ -22,6 +22,7 @@ import com.todo.controller.dto.TodoDTO;
 import com.todo.model.Todo;
 import com.todo.service.TodoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/todo")
 

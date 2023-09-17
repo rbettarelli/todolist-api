@@ -20,7 +20,7 @@ import com.todo.controller.dto.ProjectDTO;
 import com.todo.service.ProjectService;
 
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/project")
 
