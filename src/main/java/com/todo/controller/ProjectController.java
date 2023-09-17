@@ -20,7 +20,7 @@ import com.todo.controller.dto.ProjectDTO;
 import com.todo.service.ProjectService;
 
 
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+
 @RestController
 @RequestMapping("/project")
 

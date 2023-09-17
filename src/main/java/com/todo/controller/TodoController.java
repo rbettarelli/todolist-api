@@ -24,7 +24,7 @@ import com.todo.service.TodoService;
 
 @RestController
 @RequestMapping("/todo")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+
 public record TodoController(TodoService todoService) {
 
     @GetMapping("/{id}")
