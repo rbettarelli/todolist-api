@@ -34,6 +34,7 @@ public class TodoServiceImpl implements TodoService {
     public Todo create(Todo todoToCreate) {
         todoToCreate.getId();
         todoToCreate.getTitle();
+        todoToCreate.getDescription();
         todoToCreate.getDueDate();
         todoToCreate.setCompleted(false);
         todoToCreate.getPriority();
@@ -44,6 +45,7 @@ public class TodoServiceImpl implements TodoService {
     public Todo update(Long id, Todo todoToUpdate) {
         Todo dbTodo = this.findById(id);
         dbTodo.setTitle(todoToUpdate.getTitle());
+        dbTodo.setDescription(todoToUpdate.getDescription());
         dbTodo.setDueDate(todoToUpdate.getDueDate());
         dbTodo.setCompleted(todoToUpdate.isCompleted());
         dbTodo.setProject(todoToUpdate.getProject());
@@ -57,6 +59,12 @@ public class TodoServiceImpl implements TodoService {
     public void delete(Long id) {
         Todo dbTodo = this.findById(id);
         this.todoRepository.delete(dbTodo);
+    }
+    @Transactional
+    public int countCompletedTasks() {
+        List<Todo> todos = findAll();
+        long count = todos.stream().filter(task -> task.isCompleted()).count();
+        return (int) count;
     }
 
 }

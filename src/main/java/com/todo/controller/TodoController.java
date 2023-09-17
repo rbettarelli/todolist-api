@@ -2,9 +2,12 @@ package com.todo.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.todo.controller.dto.TodoDTO;
+import com.todo.model.Todo;
 import com.todo.service.TodoService;
 
 @RestController
 @RequestMapping("/todo")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public record TodoController(TodoService todoService) {
 
     @GetMapping("/{id}")
@@ -31,29 +36,49 @@ public record TodoController(TodoService todoService) {
     @PostMapping
     public ResponseEntity<TodoDTO> create(@RequestBody TodoDTO todoDTO) {
         var todo = todoService.create(todoDTO.toModel());
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(todo.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(todo.getId())
+                .toUri();
         return ResponseEntity.created(location).body(new TodoDTO(todo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TodoDTO> update(@PathVariable Long id,  @RequestBody TodoDTO todoDTO){
+    public ResponseEntity<TodoDTO> update(@PathVariable Long id, @RequestBody TodoDTO todoDTO) {
         var todo = todoService.update(id, todoDTO.toModel());
         return ResponseEntity.ok(new TodoDTO(todo));
     }
 
+    @PutMapping("/{id}/completed")
+    public ResponseEntity<TodoDTO> updateTaskCompleted(@PathVariable Long id,
+            @RequestBody Map<String, Boolean> requestBody) {
+        Boolean completed = requestBody.get("completed");
+        if (completed == null) {
+            return ResponseEntity.badRequest().build(); // Lidar com uma solicitação inválida
+        }
+        Todo todoOptional = todoService.findById(id);
+        todoOptional.setCompleted(completed);
+        todoService.update(id, todoOptional); // Atualiza a tarefa no banco de dados
+        return ResponseEntity.ok(new TodoDTO(todoOptional));
+
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete (@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         todoService.delete(id);
         return ResponseEntity.noContent().build();
-    } 
+    }
 
     @GetMapping
     public ResponseEntity<List<TodoDTO>> findAll() {
         var todo = todoService.findAll();
         var todoDto = todo.stream().map(TodoDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(todoDto);
-        
+
     }
 
-    
+    @GetMapping("/completedCount")
+    public ResponseEntity<Integer> countCompletedTasks() {
+        int count = todoService.countCompletedTasks();
+        return ResponseEntity.ok(count);
+    }
+
 }

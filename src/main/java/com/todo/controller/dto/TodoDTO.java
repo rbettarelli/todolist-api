@@ -6,10 +6,10 @@ import java.util.Date;
 
 import com.todo.model.Todo;
 
-public record TodoDTO(Long id, String title, String formattedDueDate, Boolean completed, String priority, String project) {
+public record TodoDTO(Long id, String title, String description, String formattedDueDate, Boolean completed, String priority, String project) {
 
     public TodoDTO(Todo model) {
-        this(model.getId(), model.getTitle(), formatDate(model.getDueDate()), model.isCompleted(), model.getPriority(),
+        this(model.getId(), model.getTitle(), model.getDescription(), formatDate(model.getDueDate()), model.isCompleted(), model.getPriority(),
                 model.getProject());
     }
 
@@ -30,7 +30,8 @@ public record TodoDTO(Long id, String title, String formattedDueDate, Boolean co
             e.printStackTrace();
         } // Salvar a data formatada diretamente
         model.setTitle(this.title);
-        model.setCompleted(this.completed);
+        model.setDescription(this.description);
+        model.setCompleted(false);
         model.setPriority(this.priority);
         model.setProject(this.project);
         return model;
