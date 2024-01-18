@@ -11,3 +11,19 @@ jobs:
         steps:
             - name: Checkout code 
               uses: actions/checkout@v3
+
+
+            - name: Setup Java
+              uses: actions/setup-java@v3
+              with:
+                  distribution: 'temurin'
+                  java-version: '17'
+            - name: Build project
+              run: ./gradlew build      
+            - name: Login Docker Hub    
+              run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}} 
+            - name: Build docker image
+              run: docker build -t rbettarelli/deploy_todolist .
+            - name: Push image docker   
+              run: docker push rbettarelli/deploy_todolist
+              

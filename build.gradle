@@ -12,7 +12,7 @@ java {
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral() 
 }
 
 dependencies {
@@ -27,12 +27,19 @@ dependencies {
 }
 
 tasks.jar {
-  manifest {
-    attributes["Main-Class"] = "com.todo.TodolistApplication"
-  }
+    manifest {
+        attributes["Main-Class"] = "com.todo.TodolistApplication"
+    }
 }
 
+task cleanAndBootJar(type: Delete) {
+    delete 'build'
+}
 
+task buildAndRun(type: JavaExec, dependsOn: ['cleanAndBootJar']) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.todo.TodolistApplication'
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
