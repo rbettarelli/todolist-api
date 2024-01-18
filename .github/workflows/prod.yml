@@ -27,3 +27,12 @@ jobs:
         run: docker build -t rbettarelli/deploy_todolist .
       - name: Push image docker
         run: docker push rbettarelli/deploy_todolist
+
+  deploy:
+   needs: build
+   runs-on: self-hosted
+   steps:
+     - name: Pull img from docker hub
+       run: docker pull rbettarelli/deploy_todolist:latest
+     - name: Run docker container  
+       run: docker run -d  -p 8080:8080 --name deploy_todolist
