@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${{secrets.IP_ECS2}}:5432/todo
-    username: ${{secrets.USERNAME_POSTGRES}}
-    password: ${{secrets.PASSWORD_POSTGRES}}
+    url: jdbc:postgresql://54.145.142.163:5432/todo
+    username: rbettarelli
+    password: 123456
   jpa:
     open-in-view: false
     hibernate:
