@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
 env:
-    SPRING_DATASOURCE_URL: ${{ secrets.IP_ECS }}
+    SPRING_DATASOURCE_URL: ${{ secrets.IP_ECS2 }}
     SPRING_DATASOURCE_USERNAME: ${{ secrets.USERNAME_POSTGRES }}
     SPRING_DATASOURCE_PASSWORD: ${{ secrets.PASSWORD_POSTGRES }}
 jobs:
