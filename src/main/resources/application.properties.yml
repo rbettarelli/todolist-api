@@ -1,9 +1,0 @@
-spring:
-  datasource:
-    url: jdbc:postgresql://ec2-54-145-142-163.compute-1.amazonaws.com:5432/todolist
-    username: rbettarelli
-    password: 123456
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: validate

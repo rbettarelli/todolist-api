@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${{secrets.IP_ECS2}}:5432/todo
+    username: ${{secrets.USERNAME_POSTGRES}}
+    password: ${{secrets.PASSWORD_POSTGRES}}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
