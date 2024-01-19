@@ -39,4 +39,4 @@ jobs:
       - name: Pull img from docker hub
         run: docker pull rbettarelli/deploy_todolist:latest
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name deploy_todolist rbettarelli/deploy_todolist
+        run: docker run -d -p 8080:8080 --name deploy_todolist -e SPRING_DATASOURCE_URL=${{ secrets.IP_ECS2 }} -e SPRING_DATASOURCE_USERNAME=${{ secrets.USERNAME_POSTGRES }} -e SPRING_DATASOURCE_PASSWORD=${{ secrets.PASSWORD_POSTGRES }}  rbettarelli/deploy_todolist
