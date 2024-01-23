@@ -1,4 +1,4 @@
-package com.todo;
+package com.todo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")  // Permitir qualquer origem
-                .allowedMethods("GET", "POST", "PUT", "DELETE").allowCredentials(true);
+                .allowedOrigins("*")  
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
     }
 }
