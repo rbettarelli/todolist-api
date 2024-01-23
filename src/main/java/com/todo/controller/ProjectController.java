@@ -20,7 +20,7 @@ import com.todo.controller.dto.ProjectDTO;
 import com.todo.service.ProjectService;
 
 
-
+@CrossOrigin(origins = "https://rbettarelli.github.io", maxAge = 3600)
 @RestController
 @RequestMapping("/project")
 
