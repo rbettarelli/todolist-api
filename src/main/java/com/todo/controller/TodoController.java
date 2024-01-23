@@ -22,7 +22,7 @@ import com.todo.controller.dto.TodoDTO;
 import com.todo.model.Todo;
 import com.todo.service.TodoService;
 
-@CrossOrigin(origins = "https://rbettarelli.github.io", maxAge = 3600)
+
 @RestController
 @RequestMapping("/todo")
 
